@@ -1,5 +1,6 @@
 using System;
 using MeterReadings.Domain;
+using MeterReadings.Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace MeterReadings.Infrastructure
@@ -12,12 +13,13 @@ namespace MeterReadings.Infrastructure
         }
 
         public DbSet<MeterReadingModel> MeterReadings { get; set; }
+        public DbSet<AccountModel> Accounts { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<MeterReadingModel>().Property(x => x.Id)
-                .HasDefaultValue(Guid.NewGuid());
+            modelBuilder.ApplyConfiguration(new AccountConfiguration());
+            modelBuilder.ApplyConfiguration(new MeterReadingConfiguration());
         }
     }
 }
