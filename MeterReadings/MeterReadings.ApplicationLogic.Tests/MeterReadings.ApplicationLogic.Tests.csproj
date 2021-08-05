@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.8" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+        <PackageReference Include="Moq" Version="4.16.1" />
+        <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+        <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+        <PackageReference Include="coverlet.collector" Version="3.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0">
+        <HintPath>..\..\..\..\.nuget\packages\fluentvalidation\10.3.0\lib\net5.0\FluentValidation.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.http.features\5.0.8\lib\net5.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MeterReadings.ApplicationLogic\MeterReadings.ApplicationLogic.csproj" />
+      <ProjectReference Include="..\MeterReadings.Domain\MeterReadings.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
