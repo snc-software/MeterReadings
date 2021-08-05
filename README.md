@@ -6,6 +6,7 @@ Code test for consuming meter readings
 - FluentAssertions (https://github.com/fluentassertions/fluentassertions)
 - FluentValidation (https://github.com/FluentValidation/FluentValidation)
 - Moq (https://github.com/moq/moq4)
+- CsvHelper (https://github.com/JoshClose/CsvHelper)
 
 
 # Future 
