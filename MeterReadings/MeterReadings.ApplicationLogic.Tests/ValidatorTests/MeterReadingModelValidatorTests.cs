@@ -4,6 +4,8 @@ using FluentAssertions;
 using FluentValidation;
 using MeterReadings.ApplicationLogic.Validators;
 using MeterReadings.Domain;
+using MeterReadings.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MeterReadings.ApplicationLogic.Tests.ValidatorTests
@@ -11,7 +13,9 @@ namespace MeterReadings.ApplicationLogic.Tests.ValidatorTests
     [TestClass]
     public class MeterReadingModelValidatorTests
     {
-        readonly IValidator<MeterReadingModel> _validator = new MeterReadingModelValidator();
+        MeterReadingDbContext _dbContext;
+        IValidator<MeterReadingModel> _validator;
+        
 
         [TestMethod]
         public void AValidMeterReadingModelReturnsAValidResult()
@@ -41,7 +45,7 @@ namespace MeterReadings.ApplicationLogic.Tests.ValidatorTests
             var result = _validator.Validate(invalidModel);
 
             result.IsValid.Should().BeFalse();
-            result.Errors.First().ToString().Should().Be("'Account Id' must be greater than '0'.");
+            result.Errors.First().ToString().Should().Be("A meter reading must be attached to a valid account");
         }
         
         [TestMethod]
@@ -74,6 +78,29 @@ namespace MeterReadings.ApplicationLogic.Tests.ValidatorTests
 
             result.IsValid.Should().BeFalse();
             result.Errors.First().ToString().Should().Be("'Meter Read Value' must be 5 digits.");
+        }
+
+        [TestInitialize]
+        public void Setup()
+        {
+            var dbOptions = new DbContextOptionsBuilder<MeterReadingDbContext>()
+                .UseInMemoryDatabase("in-memory")
+                .Options;
+            _dbContext = new MeterReadingDbContext(dbOptions);
+
+            if (!_dbContext.Accounts.Any())
+            {
+                _dbContext.Accounts.Add(new AccountModel
+                {
+                    AccountId = 1234,
+                    FirstName = "Test",
+                    LastName = "Person"
+                });
+                _dbContext.SaveChanges();
+            }
+            
+
+            _validator = new MeterReadingModelValidator(_dbContext);
         }
     }
 }

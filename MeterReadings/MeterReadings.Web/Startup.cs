@@ -30,7 +30,11 @@ namespace MeterReadings.Web
         {
             services.AddDbContext<MeterReadingDbContext>(opt =>
             {
-                opt.UseInMemoryDatabase("TestDb");
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), o =>
+                {
+                    o.EnableRetryOnFailure(3);
+                    o.MaxBatchSize(1000);
+                });
             });
             
             
