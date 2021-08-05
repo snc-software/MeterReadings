@@ -13,6 +13,9 @@ namespace MeterReadings.ApplicationLogic.Validators
         {
             _dbContext = dbContext;
 
+            RuleFor(m => m).Must(BeUnique)
+                .WithMessage("The meter reading must not already exist");
+            
             RuleFor(x => x.AccountId)
                 .Must(BeValidAccount)
                 .WithMessage("A meter reading must be attached to a valid account");
@@ -27,6 +30,14 @@ namespace MeterReadings.ApplicationLogic.Validators
         {
             return _dbContext.Accounts.Any(x => x.AccountId == accountId);
         }
-        
+
+        bool BeUnique(MeterReadingModel model)
+        {
+            return !_dbContext.MeterReadings.Any(x =>
+                x.AccountId == model.AccountId &&
+                x.MeterReadValue == model.MeterReadValue &&
+                x.MeterReadingDateTime == model.MeterReadingDateTime
+            );
+        }
     }
 }
