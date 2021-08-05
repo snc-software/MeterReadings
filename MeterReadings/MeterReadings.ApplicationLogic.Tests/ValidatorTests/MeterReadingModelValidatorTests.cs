@@ -15,8 +15,24 @@ namespace MeterReadings.ApplicationLogic.Tests.ValidatorTests
     {
         MeterReadingDbContext _dbContext;
         IValidator<MeterReadingModel> _validator;
-        
 
+        [TestMethod]
+        public void AValidMeterReadingModelMustbeUnique()
+        {
+            var model = new MeterReadingModel
+            {
+                AccountId = 1234,
+                MeterReadingDateTime = new DateTime(2021, 3, 3, 12, 40, 0),
+                MeterReadValue = "00012"
+            };
+            AddToDb(model);
+
+            var result = _validator.Validate(model);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.First().ToString().Should().Be("The meter reading must not already exist");
+        }
+        
         [TestMethod]
         public void AValidMeterReadingModelReturnsAValidResult()
         {
@@ -101,6 +117,13 @@ namespace MeterReadings.ApplicationLogic.Tests.ValidatorTests
             
 
             _validator = new MeterReadingModelValidator(_dbContext);
+        }
+        
+        void AddToDb(MeterReadingModel model)
+        {
+            _dbContext.MeterReadings.RemoveRange(_dbContext.MeterReadings);
+            _dbContext.MeterReadings.Add(model);
+            _dbContext.SaveChanges();
         }
     }
 }
