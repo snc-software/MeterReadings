@@ -13,6 +13,7 @@ namespace MeterReadings.Infrastructure
         }
 
         public DbSet<MeterReadingModel> MeterReadings { get; set; }
+        public DbSet<AccountModel> Accounts { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
