@@ -1,7 +1,15 @@
+using FluentValidation;
+using MediatR;
+using MeterReadings.ApplicationLogic;
+using MeterReadings.ApplicationLogic.Interfaces;
+using MeterReadings.ApplicationLogic.Validators;
+using MeterReadings.Domain;
+using MeterReadings.Infrastructure;
+using MeterReadings.ServiceModel.Requests.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,8 +28,18 @@ namespace MeterReadings.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MeterReadingDbContext>(opt =>
+            {
+                opt.UseInMemoryDatabase("TestDb");
+            });
+            
+            
+            services.AddScoped<ICsvFileReader, CsvFileReader>();
+            services.AddScoped<IMeterReadingCreator, MeterReadingCreator>();
+            
+            services.AddScoped<IValidator<MeterReadingModel>, MeterReadingModelValidator>();
+            services.AddMediatR(typeof(ProcessMeterReadingsCommand));
             services.AddControllersWithViews();
-            // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
@@ -57,9 +75,6 @@ namespace MeterReadings.Web
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

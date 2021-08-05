@@ -7,7 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
+        <PackageReference Include="MediatR" Version="9.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
         <PackageReference Include="Moq" Version="4.16.1" />
         <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
@@ -16,8 +17,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MeterReadings.ApplicationLogic\MeterReadings.ApplicationLogic.csproj" />
-      <ProjectReference Include="..\MeterReadings.ServiceModel\MeterReadings.ServiceModel.csproj" />
+      <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnetcore.http.features\5.0.8\lib\net5.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MeterReadings.Web\MeterReadings.Web.csproj" />
     </ItemGroup>
 
 </Project>
