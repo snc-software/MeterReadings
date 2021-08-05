@@ -20,6 +20,9 @@ import {MatCardModule} from "@angular/material/card";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {HighchartsChartModule} from "highcharts-angular";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -29,23 +32,26 @@ import {HighchartsChartModule} from "highcharts-angular";
     FooterComponent,
     SidebarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatDividerModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    FlexLayoutModule,
-    MatMenuModule,
-    MatListModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatTableModule,
-    HighchartsChartModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatDividerModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        FlexLayoutModule,
+        MatMenuModule,
+        MatListModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatTableModule,
+        HighchartsChartModule,
+        MatFormFieldModule,
+        MatProgressBarModule,
+      HttpClientModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
