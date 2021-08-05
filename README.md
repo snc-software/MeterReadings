@@ -10,7 +10,7 @@ Code test for consuming meter readings
 
 
 # Future 
-- Add a WebUI (Angular possibly) to run scenarios through
+- Add a WebUI (Angular possibly) to upload files
 - Return 'Invalid' meter readings
 - Retrieve Accounts and meter readings
 
