@@ -4,14 +4,16 @@ using MeterReadings.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MeterReadings.Infrastructure.Migrations
 {
     [DbContext(typeof(MeterReadingDbContext))]
-    partial class MeterReadingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210805180313_AddAccounts")]
+    partial class AddAccounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
